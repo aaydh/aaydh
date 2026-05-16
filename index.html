@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>الأعلامية | عائدة العائد</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #b8860b 100%);
+            --dark-deep: #080808;
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-gold: #d4af37;
+            --soft-white: #f8f8f8;
+            
+            /* App Colors */
+            --snapchat: #FFFC00;
+            --instagram: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            --whatsapp: #25D366;
+            --tiktok: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--dark-deep);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-image: 
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.2;
+        }
+
+        .blob {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            animation: moveAround 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveAround {
+            0% { transform: translate(-20%, -20%); }
+            100% { transform: translate(80vw, 80vh); }
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .profile-section {
+            position: relative;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .profile-outer {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gold-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--dark-deep);
+            overflow: hidden;
+            border: 4px solid var(--dark-deep);
+        }
+
+        .profile-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-content {
+            text-align: center;
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-name {
+            font-size: 1.3rem; /* تم تصغير الخط من 1.6 إلى 1.3 */
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-left: 3px solid var(--text-gold);
+            width: 0;
+            animation: typingName 1.5s steps(20, end) forwards 0.8s;
+        }
+
+        @keyframes typingName {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* التصميم الجديد لإبراز التخصص */
+        .sub-title-badge {
+            display: inline-block;
+            background: var(--gold-gradient);
+            padding: 6px 20px;
+            border-radius: 50px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInBadge 0.8s forwards 2s;
+        }
+
+        @keyframes fadeInBadge {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sub-title-badge span {
+            color: #000;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .links-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-item {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 14px 18px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .link-item:active {
+            transform: scale(0.97);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .link-item i.main-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-left: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* App Styles */
+        .link-item.snapchat i.main-icon { background-color: var(--snapchat); color: #000; }
+        .link-item.instagram i.main-icon { background: var(--instagram); color: #fff; }
+        .link-item.whatsapp i.main-icon { background-color: var(--whatsapp); color: #fff; }
+        .link-item.tiktok i.main-icon { 
+            background-color: var(--tiktok); 
+            color: #fff; 
+            border: 1px solid rgba(255,255,255,0.2);
+            text-shadow: 2px 0px #ff0050, -2px 0px #00f2ea;
+        }
+
+        .link-item span {
+            font-size: 0.95rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .link-item .arrow {
+            font-size: 0.7rem;
+            opacity: 0.3;
+        }
+
+        .bio-box {
+            margin-top: 30px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            animation: fadeInOnly 1s forwards 3s;
+        }
+
+        @keyframes fadeInOnly {
+            to { opacity: 1; }
+        }
+
+        .bio-box p {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-bottom: 20px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow">
+        <div class="blob"></div>
+    </div>
+
+    <div class="container">
+        <!-- Profile Picture -->
+        <div class="profile-section">
+            <div class="profile-outer">
+                <div class="profile-inner">
+                    <img src="omhala.png" alt="عائدة العائد" onerror="this.src='o'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header-content">
+            <h1 class="main-name" id="name-label">رائدة أعمال | عائدة العائد</h1>
+            <div class="sub-title-badge">
+                <span>علاقات عامة و أعمال</span>
+            </div>
+        </div>
+
+        <!-- Links -->
+        <div class="links-wrapper">
+            <a href="https://snapchat.com/t/NbQGUann" class="link-item snapchat" style="animation-delay: 2.2s">
+                <i class="fab fa-snapchat main-icon"></i>
+                <span>سناب شات</span>
+                <i class="fas fa-chevron-left arrow"></i>
+            </a>
+            <a href="https://wa.me/966535546786" class="link-item whatsapp" style="animation-delay: 2.6s">
+                <i class="fab fa-whatsapp main-icon"></i>
+                <span>واتساب</span>
+                <i class="fas fa-chevron-left arrow"></i>
+            </a>
+
+            <a href="https://www.tiktok.com/@ghalda675?utm_source=chatgpt.com" class="link-item tiktok" style="animation-delay: 2.8s">
+                <i class="fab fa-tiktok main-icon"></i>
+                <span>تيك توك</span>
+                <i class="fas fa-chevron-left arrow"></i>
+            </a>
+        </div>
+        <!-- Bio -->
+        <div class="bio-box">
+            <p>رائدة أعمال طموحة، أؤمن بأن النجاح يبدأ من الشغف والرؤية الواضحة. أسعى لصناعة أثر مميز من خلال تطوير الأفكار وتحويلها إلى إنجازات واقعية تجمع بين الإبداع والاحترافية، مع حرص دائم على النمو وبناء علاقات قائمة على الثقة والقيمه</p>
+        </div>
+    </div>
+    <script>
+        // Removal of the typing cursor effect
+        window.addEventListener('DOMContentLoaded', () => {
+            const nameLabel = document.getElementById('name-label');
+            setTimeout(() => {
+                nameLabel.style.borderLeft = 'none';
+            }, 2500);
+        });
+        // Interactive background for mobile
+        document.addEventListener('touchmove', (e) => {
+            const blob = document.querySelector('.blob');
+            const touch = e.touches[0];
+            const x = touch.clientX / window.innerWidth;
+            const y = touch.clientY / window.innerHeight;
+            blob.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+        });
+    </script>
+</body>
+</html>
